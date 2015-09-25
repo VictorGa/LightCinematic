@@ -57,3 +57,8 @@ These are the properties you can pass to the spritesheet:
 - `x`      : x position within your canvas (Relative to 0,0)
 - `y`      : y position within your canvas (Relative to 0,0)
 - `scale`      : scale factor range 0 to 1
+
+## Contributing
+
+- You need to have Typescript transpiler installed: http://www.typescriptlang.org/
+- Set the following arguments to the compiler: --target ES5 --declaration
