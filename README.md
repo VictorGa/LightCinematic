@@ -1,5 +1,5 @@
 # LightCinematicTS
-Small, light library for animations based on spritesheets/image sequence written in Typescript.
+Light helper for animations based on spritesheets/image sequence written in Typescript.
 
 # How to use
 You have mainly two objects in this small lib:
