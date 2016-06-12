@@ -1,12 +1,35 @@
-///<reference path="./IStage.d.ts" />
-///<reference path="./LightCinematic.d.ts" />
-/**
- * @class LightManager
- */
-class LightManager {
+import IStage from 'IStage';
+import LightCinematic from 'LightCinematic';
+import ICinematic from 'ICinematic';
 
+/**
+ * @module Temple
+ * @namespace temple.utils
+ * @class LightManager
+ *
+ * Use:
+ * var img = new Image();
+ * img.src = "spritesheet.png";
+ *
+ *  var manager = new LightManager({fps:20, width: 200, height:200, canvas:<HTMLCanvasElement>document.getElementById('myCanvas')});
+ *  var sprites = new LightCinematic({
+ *		frames: {cols: 9, count: 9, width: 50, height: 72, src: [img]},
+ *		loop:true,
+ *		x: 0,
+ *		y: 0
+ *	});
+ *
+ *  manager.appendChild(sprites);
+ *  manager.start();
+ *
+ * More info: https://github.com/VictorGa/LightCinematicTS
+ *
+ * @version 1.0.0
+ */
+class LightManager
+{
 	private _properties:any;
-	private _stop:boolean = false;
+	private _isStopped:boolean = false;
 	private _ctx:CanvasRenderingContext2D;
 
 	//Timer properties
@@ -23,7 +46,7 @@ class LightManager {
 
 	set stop(value:boolean)
 	{
-		this._stop = value;
+		this._isStopped = value;
 	}
 
 	/**
@@ -33,7 +56,8 @@ class LightManager {
 	 * @param {IStage} properties.
 	 * @constructor
 	 */
-	constructor(properties:IStage) {
+	constructor(properties:IStage)
+	{
 
 		this._update = this.update.bind(this);
 		this._properties = properties;
@@ -65,7 +89,7 @@ class LightManager {
 		var index = this._children.indexOf(child);
 		if(index !== -1)
 		{
-			this._children.splice(index, 0);
+			this._children.splice(index, 1);
 		}
 	}
 
@@ -94,7 +118,7 @@ class LightManager {
 	 */
 	public start():void
 	{
-		this._stop = false;
+		this._isStopped = false;
 		requestAnimationFrame(this._update);
 	}
 
@@ -104,7 +128,7 @@ class LightManager {
 	 */
 	private update(timestamp:number):void
 	{
-		if(this._stop) return;
+		if(this._isStopped) return;
 		// calc elapsed time since last loop
 		var elapsed = timestamp - this._then;
 
@@ -135,3 +159,5 @@ class LightManager {
 		this._children = null;
 	}
 }
+
+export default LightManager;
