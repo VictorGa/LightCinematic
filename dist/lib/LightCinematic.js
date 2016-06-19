@@ -47,6 +47,20 @@ var LightCinematic = (function () {
         this.setProperties(properties);
         this.prepareFrames();
     }
+    Object.defineProperty(LightCinematic.prototype, "frames", {
+        get: function () {
+            return this._frames;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(LightCinematic.prototype, "properties", {
+        get: function () {
+            return this._properties;
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * Method setting properties.
      * Useful for reusing the object.
@@ -57,12 +71,14 @@ var LightCinematic = (function () {
         this._properties = properties;
         this._currentFrame = 0;
         this.direction = LightCinematic.FORWARD;
-        if (typeof this._properties.loop !== 'undefined' && this._properties.loop > 0) {
+        /*if(typeof this._properties.loop !== 'undefined' && this._properties.loop > 0)
+        {
             this._properties.loop = 0;
         }
-        else {
+        else
+        {
             this._properties.loop--;
-        }
+        }*/
         return this;
     };
     /**
@@ -110,19 +126,24 @@ var LightCinematic = (function () {
      * Draw method
      */
     LightCinematic.prototype.draw = function () {
-        if ((this.direction === LightCinematic.FORWARD && this._currentFrame < this._properties.frames.count - 1) ||
-            (this.direction === LightCinematic.REVERSE && this._currentFrame > 0)) {
-            this._currentFrame += this.direction;
-        }
-        else if (this._properties.loop > 0 || this._properties.loop <= -1) {
-            this._currentFrame = 0;
-            this._properties.loop--;
-        }
-        if (!this._completed) {
+        if (!this._completed && this._properties.loop === 0) {
+            console.log('completed', this._properties.loop);
             this._properties.onComplete && this._properties.onComplete(this);
             if (this._properties.loop === 0) {
                 this._completed = true;
             }
+            return;
+        }
+        if ((this.direction === LightCinematic.FORWARD && this._currentFrame < this._properties.frames.count - 1) ||
+            (this.direction === LightCinematic.REVERSE && this._currentFrame > 0)) {
+            this._currentFrame += this.direction;
+        }
+        else if (this._properties.loop > 0) {
+            this._currentFrame = 0;
+            this._properties.loop--;
+        }
+        else if (this._properties.loop === -1) {
+            this._currentFrame = 0;
         }
         this.drawImage(this._currentFrame);
     };

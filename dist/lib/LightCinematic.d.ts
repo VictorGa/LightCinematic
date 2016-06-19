@@ -1,4 +1,5 @@
 import ICinematic from './ICinematic';
+import ISpriteProperties from './ISpriteProperties';
 /**
  * @module Temple
  * @namespace temple.utils
@@ -52,6 +53,8 @@ declare class LightCinematic {
      * Animation direction
      */
     direction: number;
+    frames: Array<ISpriteProperties>;
+    properties: ICinematic;
     /**
      * Class for managing cinematic objects.
      *
