@@ -6,6 +6,6 @@ interface ICinematic {
     x: number;
     y: number;
     multispritesheet: boolean;
-    onComplete: (data: LightCinematic) => void;
+    onComplete?: (data: LightCinematic) => void;
 }
 export default ICinematic;

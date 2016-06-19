@@ -28,7 +28,6 @@ import ISpriteProperties from './ISpriteProperties';
  *
  * More info: https://github.com/VictorGa/LightCinematicTS
  *
- * @author Victor Garrido <v.garrido@mediamonks.com>
  * @version 1.0.0
  */
 class LightCinematic
@@ -63,6 +62,16 @@ class LightCinematic
 	 */
 	public direction:number;
 
+	get frames():Array<ISpriteProperties>
+	{
+		return this._frames;
+	}
+
+	get properties():ICinematic
+	{
+		return this._properties;
+	}
+
 	/**
 	 * Class for managing cinematic objects.
 	 *
@@ -88,14 +97,14 @@ class LightCinematic
 		this._currentFrame = 0;
 		this.direction = LightCinematic.FORWARD;
 
-		if(typeof this._properties.loop !== 'undefined' && this._properties.loop > 0)
+		/*if(typeof this._properties.loop !== 'undefined' && this._properties.loop > 0)
 		{
 			this._properties.loop = 0;
 		}
 		else
 		{
 			this._properties.loop--;
-		}
+		}*/
 
 		return this;
 	}
@@ -161,25 +170,32 @@ class LightCinematic
 	 */
 	public draw():void
 	{
-		if((this.direction === LightCinematic.FORWARD && this._currentFrame < this._properties.frames.count - 1) ||
-			(this.direction === LightCinematic.REVERSE && this._currentFrame > 0))
+		if(!this._completed && this._properties.loop === 0)
 		{
-			this._currentFrame += this.direction;
-		}
-		else if(this._properties.loop > 0 || this._properties.loop <= -1)
-		{
-			this._currentFrame = 0;
-			this._properties.loop--;
-		}
-
-		if(!this._completed)
-		{
+			console.log('completed', this._properties.loop);
 			this._properties.onComplete && this._properties.onComplete(this);
 
 			if(this._properties.loop === 0)
 			{
 				this._completed = true;
 			}
+
+			return;
+		}
+
+		if((this.direction === LightCinematic.FORWARD && this._currentFrame < this._properties.frames.count - 1) ||
+			(this.direction === LightCinematic.REVERSE && this._currentFrame > 0))
+		{
+			this._currentFrame += this.direction;
+		}
+		else if(this._properties.loop > 0)
+		{
+			this._currentFrame = 0;
+			this._properties.loop--;
+		}
+		else if(this._properties.loop === -1)
+		{
+			this._currentFrame = 0;
 		}
 
 		this.drawImage(this._currentFrame);

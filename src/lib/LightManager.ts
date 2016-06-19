@@ -1,6 +1,6 @@
-import IStage from 'IStage';
-import LightCinematic from 'LightCinematic';
-import ICinematic from 'ICinematic';
+import IStage from './IStage';
+import LightCinematic from './LightCinematic';
+import ICinematic from './ICinematic';
 
 /**
  * @module Temple

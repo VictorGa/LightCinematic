@@ -25,7 +25,6 @@ import ICinematic from './ICinematic';
  *
  * More info: https://github.com/VictorGa/LightCinematicTS
  *
- * @author Victor Garrido <v.garrido@mediamonks.com>
  * @version 1.0.0
  */
 declare class LightCinematic {
