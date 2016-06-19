@@ -11,6 +11,13 @@
     "test": "tsc -p ./test && karma start karma.conf.js --single-run --browsers PhantomJS",
     "build": "rm -rf dist && tsc -p ./"
   },
+  "keywords": [
+    "animation",
+    "cinematic",
+    "spritesheet",
+    "image",
+    "sequence"
+  ],
   "author": "Victor Garrido",
   "devDependencies": {
     "uglify-js": "^2.4.23",
