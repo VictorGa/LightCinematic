@@ -8,6 +8,7 @@
     "postinstall": "npm run typings",
     "prepublish": "npm run build",
     "typings": "typings install",
+    "doc": "typedoc --out doc/typedoc/ src/",
     "test": "tsc -p ./test && karma start karma.conf.js --single-run --browsers PhantomJS",
     "build": "rm -rf dist && tsc -p ./"
   },

@@ -15,7 +15,8 @@ module.exports = function (config)
 
 		// list of files / patterns to load in the browser
 		files: [
-			'test/index.js'
+			'test/index.js',
+			{pattern: 'test/images/*.png', watched: false, included: false, served: true}
 		],
 
 
@@ -42,7 +43,6 @@ module.exports = function (config)
 				]
 			}
 		},
-
 
 		// test results reporter to use
 		// possible values: 'dots', 'progress'

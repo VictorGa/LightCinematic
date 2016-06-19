@@ -14,3 +14,15 @@ export var cinematic = <ICinematic>{
 	{
 	}
 };
+
+export var cinematic2 = <ICinematic>{
+
+	frames: {cols: 10, count: 10, width: 50, height: 72, src: [img, img]},
+	loop: 1,
+	x: 0,
+	y: 0,
+	multispritesheet: true,
+	onComplete: (sprite:LightCinematic) =>
+	{
+	}
+};

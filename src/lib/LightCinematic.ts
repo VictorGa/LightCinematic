@@ -72,6 +72,11 @@ class LightCinematic
 		return this._properties;
 	}
 
+	get currentFrame():number
+	{
+		return this._currentFrame;
+	}
+
 	/**
 	 * Class for managing cinematic objects.
 	 *
@@ -82,7 +87,6 @@ class LightCinematic
 	constructor(properties:ICinematic)
 	{
 		this.setProperties(properties);
-		this.prepareFrames();
 	}
 
 	/**
@@ -97,6 +101,7 @@ class LightCinematic
 		this._currentFrame = 0;
 		this.direction = LightCinematic.FORWARD;
 
+		this.prepareFrames();
 		/*if(typeof this._properties.loop !== 'undefined' && this._properties.loop > 0)
 		{
 			this._properties.loop = 0;
@@ -129,6 +134,8 @@ class LightCinematic
 					let height = frame.y + this._properties.frames.height;
 
 					this._frames.push({spritesheet: spritesheetIndex, x: frame.x, y: frame.y});
+
+					console.log('true', this._properties.frames.src[spritesheetIndex].width);
 
 					if(width >= this._properties.frames.src[spritesheetIndex].width
 						&& height >= this._properties.frames.src[spritesheetIndex].height)
@@ -172,7 +179,6 @@ class LightCinematic
 	{
 		if(!this._completed && this._properties.loop === 0)
 		{
-			console.log('completed', this._properties.loop);
 			this._properties.onComplete && this._properties.onComplete(this);
 
 			if(this._properties.loop === 0)
@@ -183,22 +189,29 @@ class LightCinematic
 			return;
 		}
 
+		//Draw current frame
+		this.drawImage(this._currentFrame);
+
+		//Update frame
 		if((this.direction === LightCinematic.FORWARD && this._currentFrame < this._properties.frames.count - 1) ||
 			(this.direction === LightCinematic.REVERSE && this._currentFrame > 0))
 		{
 			this._currentFrame += this.direction;
+			return;
 		}
-		else if(this._properties.loop > 0)
+
+		//Check end of cinematic
+		if(this.direction === LightCinematic.REVERSE && this._currentFrame === 0)
+		{
+			this._currentFrame = this._properties.frames.count - 1;
+			this._properties.loop--;
+		}
+
+		if(this.direction === LightCinematic.FORWARD && this._currentFrame === this._properties.frames.count - 1)
 		{
 			this._currentFrame = 0;
 			this._properties.loop--;
 		}
-		else if(this._properties.loop === -1)
-		{
-			this._currentFrame = 0;
-		}
-
-		this.drawImage(this._currentFrame);
 	}
 
 	/**
@@ -207,6 +220,7 @@ class LightCinematic
 	 */
 	public goto(frame:number):void
 	{
+		this._currentFrame = frame;
 		this._ctx.clearRect(0, 0, this._ctx.canvas.width, this._ctx.canvas.height );
 		this.drawImage(frame);
 	}
@@ -217,18 +231,11 @@ class LightCinematic
 	 */
 	private drawImage(frame:number):void
 	{
-		try
-		{
-			this._ctx.drawImage(this._properties.frames.src[this._frames[frame].spritesheet],
-				this._frames[frame].x, this._frames[frame].y,
-				this._properties.frames.width, this._properties.frames.height,
-				this._properties.x, this._properties.y,
-				this._properties.frames.width, this._properties.frames.height);
-		}
-		catch(e)
-		{
-			console.error(e);
-		}
+		this._ctx.drawImage(this._properties.frames.src[this._frames[frame].spritesheet],
+			this._frames[frame].x, this._frames[frame].y,
+			this._properties.frames.width, this._properties.frames.height,
+			this._properties.x, this._properties.y,
+			this._properties.frames.width, this._properties.frames.height);
 	}
 
 	/**
