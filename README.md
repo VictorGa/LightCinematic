@@ -19,15 +19,22 @@ var manager = LightManager.create({fps:25, stage: {width: 200, height:200, canva
 Create a spritesheet:
 ```javascript
 var img = new Image();
-img.src = "dude_animation_sheet.png";
+img.src = "spritesheet.png";
 
-var sprites = LightSpritesheet.create({
-			cols: 9,
-			frames: {count: 9, width: 50, height: 72, src: [img]},
-			loop:true,
-			x: 0,
-			y: 0
-		});
+var sprites = new LightCinematic({
+ 		frames: {cols: 9, count: 9, width: 50, height: 72, src: [img]},
+ 		loop: -1, (infinite loop: -1)
+ 		x: 0,
+ 		y: 0,
+ 		multispritesheet: true,
+       onComplete: (sprite:LightCinematic) => {}
+ 	});
+ 
+  sprites.setContext(<CanvasRenderingContext2D>document.getElementById('myCanvas').getContext('2d'));
+ 
+  requestAnimationFrame(() => {
+  	sprites.draw();
+  })
 ```
 Add add it to the manager
 
