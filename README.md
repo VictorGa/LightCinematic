@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/VictorGa/LightCinematic.svg?branch=master)](https://travis-ci.org/VictorGa/LightCinematic)
+[![Coverage Status](https://coveralls.io/repos/github/VictorGa/LightCinematic/badge.svg?branch=master)](https://coveralls.io/github/VictorGa/LightCinematic?branch=master)
+[![Code Climate](https://codeclimate.com/github/VictorGa/LightCinematic/badges/gpa.svg)](https://codeclimate.com/github/VictorGa/LightCinematic)
+
 # LightCinematicTS
 Light helper for animations based on spritesheets/image sequence written in Typescript.
 
