@@ -135,8 +135,6 @@ class LightCinematic
 
 					this._frames.push({spritesheet: spritesheetIndex, x: frame.x, y: frame.y});
 
-					console.log('true', this._properties.frames.src[spritesheetIndex].width);
-
 					if(width >= this._properties.frames.src[spritesheetIndex].width
 						&& height >= this._properties.frames.src[spritesheetIndex].height)
 					{
