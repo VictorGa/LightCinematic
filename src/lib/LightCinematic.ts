@@ -219,6 +219,7 @@ class LightCinematic
 	public goto(frame:number):void
 	{
 		this._currentFrame = frame;
+		this._completed = false;
 		this._ctx.clearRect(0, 0, this._ctx.canvas.width, this._ctx.canvas.height );
 		this.drawImage(frame);
 	}
