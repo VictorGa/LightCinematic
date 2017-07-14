@@ -33,7 +33,8 @@
     "phantomjs-prebuilt": "^2.1.3",
     "tslint": "^3.3.0",
     "typescript": "^1.8.0",
-    "webpack": "^1.12.12"
+    "webpack": "^1.12.12",
+    "typings": "^2.1.1"
   },
   "engines": {
     "npm": "2.7.4"
